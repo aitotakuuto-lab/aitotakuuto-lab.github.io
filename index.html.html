@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>株式会社川田商会 | 白老町のガソリンスタンド・車検・灯油配達</title>
+  <style>
+    /* --- 全体設定 --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      color: #333;
+      background-color: #f8f9fa;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* --- ヘッダー --- */
+    header {
+      background-color: #fff;
+      border-bottom: 3px solid #e60012; /* 出光イメージのレッド */
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo-area h1 {
+      font-size: 1.5rem;
+      color: #e60012;
+    }
+    .logo-area p {
+      font-size: 0.8rem;
+      color: #666;
+    }
+    .header-contact {
+      text-align: right;
+    }
+    .header-tel {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* --- メインビジュアル（バナー領域） --- */
+    .hero {
+      background: linear-gradient(135deg, #e60012, #ff4d4d);
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+    .hero-btn {
+      display: inline-block;
+      background-color: #ffde00; /* 黄色の目立つボタン */
+      color: #000;
+      font-weight: bold;
+      padding: 12px 30px;
+      border-radius: 25px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      transition: 0.3s;
+    }
+    .hero-btn:hover {
+      background-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* --- クイックメニュー（モダ石油風の目的別大型ボタン） --- */
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #e60012;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: #e60012;
+      margin: 8px auto 0;
+    }
+
+    .quick-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+    .menu-card {
+      background: #fff;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .menu-card:hover {
+      border-color: #e60012;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(230,0,18,0.15);
+    }
+    .menu-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    .menu-card h3 {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .menu-card p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* --- お得なお知らせ・トピックス --- */
+    .news-box {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 5px solid #e60012;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+    }
+    .news-item {
+      padding: 10px 0;
+      border-bottom: 1px dashed #eee;
+      display: flex;
+      gap: 15px;
+    }
+    .news-item:last-child {
+      border-bottom: none;
+    }
+    .news-date {
+      color: #e60012;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    /* --- フッター --- */
+    footer {
+      background-color: #222;
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="logo-area">
+      <p>白老町の出光特約店</p>
+      <h1>株式会社 川田商会</h1>
+    </div>
+    <div class="header-contact">
+      <p>お電話でのご相談・配達予約</p>
+      <div class="header-tel">📞 0144-XX-XXXX</div>
+    </div>
+  </header>
+
+  <!-- メインビジュアル -->
+  <div class="hero">
+    <h2>白老のカーライフ＆暮らしをトータルサポート！</h2>
+    <p>ガソリン給油・安心の車検整備・冬の灯油配達までお任せください</p>
+    <a href="#syaken" class="hero-btn">🚗 ネット限定！車検の無料見積もりはこちら</a>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div class="container">
+
+    <!-- 目的から探す（モダ石油風メニュー） -->
+    <h2 class="section-title">サービス一覧</h2>
+    <div class="quick-menu">
+
+      <a href="#" class="menu-card">
+        <div class="icon">⛽</div>
+        <h3>ガソリンスタンド</h3>
+        <p>サービスステーション情報・営業時間案内</p>
+      </a>
+
+      <a href="#" class="menu-card" id="syaken">
+        <div class="icon">🔧</div>
+        <h3>車検・整備</h3>
+        <p>国家資格整備士が常駐！安心の事前見積り</p>
+      </a>
+
+      <a href="#" class="menu-card">
+        <div class="icon">🚚</div>
+        <h3>灯油配達</h3>
+        <p>お電話一本でご自宅までスピーディーに配達</p>
+      </a>
+
+      <a href="#" class="menu-card">
+        <div class="icon">🚘</div>
+        <h3>新車・中古車販売</h3>
+        <p>お車のお乗り換え・買取も気軽にご相談</p>
+      </a>
+
+    </div>
+
+    <!-- 最新情報・お得なキャンペーン -->
+    <h2 class="section-title">お知らせ・お得情報</h2>
+    <div class="news-box">
+      <div class="news-item">
+        <span class="news-date">2026.09.01</span>
+        <span class="news-text">【秋の車検フェア開催】早期予約でBoxティッシュプレゼント！</span>
+      </div>
+      <div class="news-item">
+        <span class="news-date">2026.08.20</span>
+        <span class="news-text">冬の灯油定期配送の事前受付を開始いたしました。</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <p>&copy; 株式会社川田商会 All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
