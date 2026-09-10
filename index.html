@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>株式会社川田商会 | KAWADA SHOKAI</title>
+  <style>
+    /* --- 全体・基本設定 --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Sans", sans-serif;
+      color: #e0e0e0;
+      background-color: #0d0d0d;
+      line-height: 1.8;
+      letter-spacing: 0.05em;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* --- スクロールアニメーション用CSS --- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- ヘッダー（ガラス感・スクロール固定） --- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(13, 13, 13, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-area .sub {
+      font-size: 0.7rem;
+      color: #c5a059;
+      letter-spacing: 0.2em;
+    }
+    .logo-area h1 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .header-tel {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #c5a059;
+      font-family: Georgia, serif;
+    }
+
+    /* --- ヒーローセクション（ファーストビュー） --- */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: radial-gradient(circle at center, #1f1f1f 0%, #0d0d0d 100%);
+      padding: 0 20px;
+      overflow: hidden;
+    }
+    .hero-content {
+      max-width: 900px;
+      width: 100%;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: #c5a059;
+      border: 1px solid #c5a059;
+      padding: 6px 20px;
+      margin-bottom: 30px;
+      letter-spacing: 0.25em;
+      border-radius: 50px;
+    }
+
+    /* ★ かっこよく「ふわっと浮き出る」社名アニメーション ★ */
+    .brand-title-wrap {
+      margin-bottom: 25px;
+      perspective: 1000px; /* 3D的な奥行き感 */
+    }
+
+    .brand-title {
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      /* ゴールド〜ホワイトの質感グラデーション */
+      background: linear-gradient(135deg, #ffffff 0%, #e6ca94 50%, #c5a059 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      
+      /* 浮き出ながら呼吸するように発光する無限アニメーション */
+      animation: floatUpGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatUpGlow {
+      0% {
+        opacity: 0.3;
+        transform: translateY(20px) scale(0.96) translateZ(-20px);
+        filter: drop-shadow(0 0 0px rgba(197, 160, 89, 0));
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1.02) translateZ(0);
+        /* 上品なゴールドの発光（グローエフェクト） */
+        filter: drop-shadow(0 10px 25px rgba(197, 160, 89, 0.45));
+      }
+    }
+
+    .hero h3 {
+      font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+      font-weight: 300;
+      color: #a0a0a0;
+      margin-bottom: 25px;
+      letter-spacing: 0.08em;
+    }
+    .hero p {
+      font-size: 0.95rem;
+      color: #777;
+      margin-bottom: 40px;
+    }
+    .hero-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #c5a059, #9e7d3b);
+      color: #000;
+      font-weight: 600;
+      padding: 16px 42px;
+      border-radius: 50px;
+      letter-spacing: 0.1em;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(197, 160, 89, 0.2);
+    }
+    .hero-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(197, 160, 89, 0.4);
+    }
+
+    /* 下スクロール誘導矢印 */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #666;
+      letter-spacing: 0.15em;
+    }
+    .scroll-indicator::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, #c5a059, transparent);
+      margin-top: 10px;
+      animation: scrollAnim 2s infinite;
+    }
+    @keyframes scrollAnim {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      50.1% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* --- メインコンテンツ --- */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 20px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: #c5a059;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 400;
+      color: #fff;
+    }
+
+    /* サービスカード（グリッド） */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-bottom: 120px;
+    }
+    .service-card {
+      background: #141414;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 40px 30px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #c5a059, transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: #333;
+      background: #1a1a1a;
+    }
+    .service-card:hover::before {
+      opacity: 1;
+    }
+    .service-num {
+      font-size: 0.8rem;
+      color: #c5a059;
+      font-family: Georgia, serif;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-size: 1.3rem;
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+    .service-card p {
+      font-size: 0.85rem;
+      color: #888;
+      line-height: 1.7;
+    }
+
+    /* インフォメーションエリア */
+    .info-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      background: #141414;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 50px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .info-section { grid-template-columns: 1fr; padding: 30px; }
+    }
+    .info-text h3 {
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+    .info-text p {
+      color: #aaa;
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+    }
+    .news-list {
+      border-top: 1px solid #222;
+    }
+    .news-item {
+      padding: 15px 0;
+      border-bottom: 1px solid #222;
+      display: flex;
+      gap: 20px;
+      font-size: 0.85rem;
+    }
+    .news-date {
+      color: #c5a059;
+      font-family: Georgia, serif;
+    }
+
+    /* --- フッター --- */
+    footer {
+      background-color: #080808;
+      color: #555;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.75rem;
+      border-top: 1px solid #1a1a1a;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="logo-area">
+      <div class="sub">IDEMITSU SPECIAL DEALER</div>
+      <h1>株式会社 川田商会</h1>
+    </div>
+    <div class="header-tel">0144-XX-XXXX</div>
+  </header>
+
+  <!-- ヒーローセクション（ファーストビュー） -->
+  <section class="hero">
+    <div class="hero-content fade-in">
+      <span class="hero-tag">SHIRAOI CAR LIFE & ENERGY</span>
+      
+      <!-- ふわっと浮き出る社名デザイン -->
+      <div class="brand-title-wrap">
+        <h2 class="brand-title">株式会社 川田商会</h2>
+      </div>
+
+      <h3>白老の移動と暮らしに、洗練された安心を。</h3>
+      <p>ガソリン給油、最高品質の車検整備、冬の暮らしを守る灯油配達。</p>
+      <a href="#services" class="hero-btn">サービスを見る</a>
+    </div>
+    <div class="scroll-indicator">SCROLL</div>
+  </section>
+
+  <!-- メインコンテンツ -->
+  <main class="container">
+
+    <!-- サービスエリア -->
+    <section id="services">
+      <div class="section-header fade-in">
+        <div class="section-subtitle">OUR SERVICES</div>
+        <h2 class="section-title">提供サービス</h2>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <div class="service-num">01 / GAS STATION</div>
+          <h3>ガソリンスタンド</h3>
+          <p>出光ブランドの高品質な燃料を提供。日常の点検から洗車までトータルでサポートします。</p>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-num">02 / CAR MAINTENANCE</div>
+          <h3>車検・自動車整備</h3>
+          <p>国家資格整備士が常駐。お客様のお車に合わせた透明性のある整備と安心の点検を実施します。</p>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-num">03 / KEROSENE DELIVERY</div>
+          <h3>灯油配達</h3>
+          <p>白老の厳しい冬を支えるスピーディーな灯油配送。定期配送でお手間を取らせません。</p>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-num">04 / CAR SALES & LEASE</div>
+          <h3>車両販売・リース</h3>
+          <p>新車・中古車の販売からマイカーリースまで、生活スタイルに合わせた最適なお車をご提案。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ニュース・トピックス -->
+    <section class="info-section fade-in">
+      <div class="info-text">
+        <h3>NEWS & TOPICS</h3>
+        <p>川田商会からの最新のお知らせや、お得なキャンペーン情報をご覧いただけます。</p>
+        <a href="tel:0144-XX-XXXX" class="hero-btn" style="padding: 12px 30px; font-size: 0.85rem;">お問い合わせ</a>
+      </div>
+      <div class="news-list">
+        <div class="news-item">
+          <span class="news-date">2026.09.01</span>
+          <span class="news-text">秋の車検予約早期割引フェアスタート</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2026.08.20</span>
+          <span class="news-text">冬期灯油定期配送の事前お申込み受付について</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2026.07.15</span>
+          <span class="news-text">Webサイトリニューアルのお知らせ</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    <p>&copy; KAWADA SHOKAI Co., Ltd. All Rights Reserved.</p>
+  </footer>
+
+  <!-- スクロールアニメーション用 JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>
